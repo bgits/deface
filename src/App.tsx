@@ -1,26 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { styled, createTheme, ThemeProvider } from '@mui/system';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1976d2',
+      contrastText: 'white',
+    },
+  },
+});
+
+const Root = styled('div')(({ theme }) => ({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(12, [col] 1fr)',
+  gridTemplateRows: 'abcdefghijklmnopqrstuvwxy'.split('').map(x => `[${x}] 1fr `).join(''),
+  gridGap: '0.5em'
+}));
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Root></Root>
+    </ThemeProvider>
   );
 }
-
 export default App;
