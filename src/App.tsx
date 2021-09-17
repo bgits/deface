@@ -1,5 +1,6 @@
 import React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/system';
+import Info from './components/Info';
 
 const theme = createTheme({
   palette: {
@@ -12,15 +13,18 @@ const theme = createTheme({
 
 const Root = styled('div')(({ theme }) => ({
   display: 'grid',
-  gridTemplateColumns: 'repeat(12, [col] 1fr)',
+  gridTemplateColumns: 'repeat(11, [col] 1fr)',
   gridTemplateRows: 'abcdefghijklmnopqrstuvwxy'.split('').map(x => `[${x}] 1fr `).join(''),
-  gridGap: '0.5em'
-}));
+  gridGap: '0.5em',
+  height: '173vw'
+}))
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Root></Root>
+      <Root>
+        <Info />
+      </Root>
     </ThemeProvider>
   );
 }
