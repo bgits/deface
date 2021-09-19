@@ -1,5 +1,6 @@
 import React from 'react';
 import { styled } from '@mui/system';
+import InfoHeader from './InfoHeader';
 
 const Container = styled('div')(({ theme }) => ({
   display: 'grid',
@@ -10,15 +11,12 @@ const Container = styled('div')(({ theme }) => ({
   gridTemplateRows: 'abcdefghijk'.split('').map(x => `[${x}] 1fr `).join(''),
 }));
 
-const TestSpan = styled('span')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'flex-end',
-  gridColumnStart: 'a7',
-  color: 'white'
-}))
-
-export default function () {
+function Info() {
   return (
-    <Container><TestSpan>test</TestSpan></Container>
+    <Container>
+      <InfoHeader />
+    </Container>
   );
 }
+
+export default Info
