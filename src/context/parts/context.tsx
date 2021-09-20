@@ -6,6 +6,7 @@ const DEFACES_CID = 'QmdQh55dhVRDz4xxawGWdc8LHH9XRiLkZX2bwvZejM3BpM';
 
 export const PartsContext = React.createContext({});
 async function getDirectoryInfo(ipfs: any, setState: Function) {
+  console.log('getDirectoryInfo')
   const cids = [];
   for await (const file of ipfs.ls(DEFACES_CID)) {
     const files = []
@@ -28,8 +29,7 @@ async function getDirectoryInfo(ipfs: any, setState: Function) {
     }
     cids.push(file)
   }
-  console.log({cids})
-  setState(cids)
+  setState({ backgrounds: cids[0]['files'], parts: cids[1]['files'] })
 }
 
 export function PartsProvider({ children }: any) {

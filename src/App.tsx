@@ -1,6 +1,7 @@
 import React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/system';
 import Info from './components/Info';
+import Parts from './components/Parts';
 
 const theme = createTheme({
   palette: {
@@ -23,6 +24,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Root>
+        <Parts />
         <Info />
       </Root>
     </ThemeProvider>
