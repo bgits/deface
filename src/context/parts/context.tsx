@@ -1,12 +1,15 @@
 import React, { useState, useCallback, useContext, useMemo, useEffect } from "react";
 import { IPFS } from 'ipfs';
 import useIpfsFactory from '../../hooks/useIpfs';
-import { PartImages, part } from '../../types';
+import { PartImages, Part } from '../../types';
 
 const DEFACES_CID = 'QmdQh55dhVRDz4xxawGWdc8LHH9XRiLkZX2bwvZejM3BpM';
 export type IPartsContext = {
-  partImages: PartImages
+  partImages: PartImages,
+  setPart: (path: string) => void,
+  selectedParts: ISelectedParts
 }
+type ISelectedParts = Set<string>
 
 export const PartsContext = React.createContext<IPartsContext>({} as IPartsContext);
 async function getDirectoryInfo(ipfs: IPFS, setState: Function) {
@@ -14,8 +17,8 @@ async function getDirectoryInfo(ipfs: IPFS, setState: Function) {
   for await (const file of ipfs.ls(DEFACES_CID)) {
     const files = []
     if (file.type == 'dir') {
-      for await (const f of ipfs.ls(file.path) as AsyncIterable<part>) {
-        f as part
+      for await (const f of ipfs.ls(file.path) as AsyncIterable<Part>) {
+        f as Part
         if (f.type === 'file') {
           try {
             for await (const file of ipfs.cat(f.path)) {
@@ -41,13 +44,23 @@ async function getDirectoryInfo(ipfs: IPFS, setState: Function) {
 export function PartsProvider({ children }: any) {
   const { ipfs } = useIpfsFactory();
   const [ partImages, setPartImages ] = useState<PartImages>({} as PartImages);
+  const [selectedParts, setSelected] = useState<ISelectedParts>(new Set());
+
+  const setPart = (path: string): void => {
+    const clone = new Set(selectedParts);
+    const isSelected = clone.has(path);
+    isSelected ? clone.delete(path) : clone.add(path);
+    setSelected(clone);
+  }
 
   useEffect(() => {
     if (!ipfs) return
+    //@ts-ignore
+    window.ipfs = ipfs
     getDirectoryInfo(ipfs, setPartImages)
   }, [ipfs]);
 
-  const values = { partImages };
+  const values = { partImages, setPart, selectedParts };
   return (
     <PartsContext.Provider value={values}>
       {children}

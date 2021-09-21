@@ -1,6 +1,7 @@
 import React, { useContext, Fragment } from 'react';
 import { styled } from '@mui/system';
 import { PartsContext } from '../context/parts/context';
+import { Part } from '../types';
 
 const Container = styled('div')(({ theme }) => ({
   display: 'grid',
@@ -13,29 +14,29 @@ const Container = styled('div')(({ theme }) => ({
   alignItems: 'center'
 }));
 
-function PartContainer({ part, idx }: any) {
+function PartContainer({ part, idx, selected, setPart }: any) {
 
   const Part = styled('img')(() => ({
     gridColumnStart: `a${(idx % 4) + 1}`,
-    maxHeight: '4em'
+    maxHeight: '4em',
+    border: selected ? '1px solid #da5568' : 'none'
   }))
 
   return (
     <Fragment>
-      <Part src={part.imageURL} />
+      <Part src={part.imageURL} onClick={() => setPart(part.path)} />
     </Fragment>
   )
 
 }
 
 function Info() {
-  //@ts-ignore
-  const { partImages } = useContext(PartsContext)
+  const { partImages, selectedParts, setPart } = useContext(PartsContext)
   console.log({partImages})
   if (!partImages || !partImages.parts) return <Container />
   return (
     <Container>
-      {partImages.parts.map(((p: any, i: number) => <PartContainer key={p.path} part={p} idx={i} />))}
+      {partImages.parts.map(((p: Part, i: number) => <PartContainer key={p.path} part={p} idx={i} setPart={setPart} selected={selectedParts.has(p.path)} />))}
     </Container>
   );
 }

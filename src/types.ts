@@ -1,15 +1,16 @@
 import { CID } from 'multiformats/cid'
 
-export type part = {
+export type Part = {
   cid: CID,
   imageURL: string,
   name: string,
   path: string,
   size: number,
-  type: string
+  type: string,
+  isSelected: boolean
 }
 
 export type PartImages = {
-  backgrounds: part[],
-  parts: part[]
+  backgrounds: Part[],
+  parts: Part[]
 }
