@@ -32,7 +32,6 @@ function PartContainer({ part, idx, selected, setPart }: any) {
 
 function Info() {
   const { partImages, selectedParts, setPart } = useContext(PartsContext)
-  console.log({partImages})
   if (!partImages || !partImages.parts) return <Container />
   return (
     <Container>

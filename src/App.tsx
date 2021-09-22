@@ -1,5 +1,6 @@
 import React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/system';
+import { HashRouter as Router } from 'react-router-dom'
 import Info from './components/Info';
 import Parts from './components/Parts';
 
@@ -24,8 +25,10 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Root>
-        <Parts />
-        <Info />
+        <Router>
+          <Parts />
+          <Info />
+        </Router>
       </Root>
     </ThemeProvider>
   );
