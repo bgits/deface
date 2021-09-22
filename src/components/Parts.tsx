@@ -2,6 +2,7 @@ import React, { useContext, Fragment } from 'react';
 import { styled } from '@mui/system';
 import { PartsContext } from '../context/parts/context';
 import { Part } from '../types';
+import { GridLoader } from 'react-spinners';
 
 const Container = styled('div')(({ theme }) => ({
   display: 'grid',
@@ -32,7 +33,7 @@ function PartContainer({ part, idx, selected, setPart }: any) {
 
 function Info() {
   const { partImages, selectedParts, setPart } = useContext(PartsContext)
-  if (!partImages || !partImages.parts) return <Container />
+  if (!partImages || !partImages.parts) return <GridLoader size={100} />
   return (
     <Container>
       {partImages.parts.map(((p: Part, i: number) => <PartContainer key={p.path} part={p} idx={i} setPart={setPart} selected={selectedParts.has(p.path)} />))}
