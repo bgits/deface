@@ -36,7 +36,7 @@ function InfoHeader() {
   const pathName = location.pathname.split('/')[1];
   return (
     <Fragment>
-      <AboutSpan>ABOUT DEFACES</AboutSpan>
+      <AboutSpan sx={pathName === "about" ? border : {}} onClick={() => history.push('/about') }>ABOUT DEFACES</AboutSpan>
       <RoadmapSpan>ROADMAP</RoadmapSpan>
       <PlaygroundSpan sx={pathName === "playground" ? border : {}} onClick={() => history.push('/playground') }>PLAYGROUND</PlaygroundSpan>
     </Fragment>

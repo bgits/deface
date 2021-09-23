@@ -7,7 +7,9 @@ const DEFACES_CID = 'QmdQh55dhVRDz4xxawGWdc8LHH9XRiLkZX2bwvZejM3BpM';
 export type IPartsContext = {
   partImages: PartImages,
   setPart: (path: string) => void,
-  selectedParts: ISelectedParts
+  selectedParts: ISelectedParts,
+  selectedBackground: string,
+  setBackground: (b: string) => void
 }
 type ISelectedParts = Set<string>
 
@@ -45,6 +47,7 @@ export function PartsProvider({ children }: any) {
   const { ipfs } = useIpfsFactory();
   const [ partImages, setPartImages ] = useState<PartImages>({} as PartImages);
   const [selectedParts, setSelected] = useState<ISelectedParts>(new Set());
+  const [selectedBackground, setBackground] = useState<string>('');
 
   const setPart = (path: string): void => {
     const clone = new Set(selectedParts);
@@ -60,7 +63,7 @@ export function PartsProvider({ children }: any) {
     getDirectoryInfo(ipfs, setPartImages)
   }, [ipfs]);
 
-  const values = { partImages, setPart, selectedParts };
+  const values = { partImages, setPart, selectedParts, selectedBackground, setBackground };
   return (
     <PartsContext.Provider value={values}>
       {children}

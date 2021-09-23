@@ -7,7 +7,7 @@ import { Part } from '../types';
 
 const Container = styled('div')(({ theme }) => ({
   display: 'grid',
-  background: 'black',
+  background: 'transparent',
   gridColumn: 'a6 / 7',
   gridRow: 'b / l',
   gridTemplateColumns: ['a6','a7', 'a8', 'a9', 'a10', 'a11'].map(x => `[${x}] 1fr `).join(''),
@@ -43,7 +43,7 @@ function PartContainer({ part, idx }: any) {
 }
 
 function Playground() {
-  const { partImages, selectedParts, setPart } = useContext(PartsContext)
+  const { partImages, selectedParts } = useContext(PartsContext)
   if (!partImages || !partImages.parts) return <Fragment />
   return(
     <Container>
