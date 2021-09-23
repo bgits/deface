@@ -24,7 +24,7 @@ function PartContainer({ part, idx }: any) {
 
   const onControlledDrag = (e: any, position: any) => {
     const {x, y} = position;
-    setCoordinates({x,y});
+    setCoordinates({x: x < -235 ? -235 : x, y});
   };
 
   const Part = styled('img')(() => ({
@@ -33,9 +33,10 @@ function PartContainer({ part, idx }: any) {
     maxHeight: '4em'
   }))
 
+  console.log({coordinates})
   return (
     <Fragment>
-      <Draggable onStart={handleOver} onDrag={onControlledDrag}>
+      <Draggable position={coordinates} onStart={handleOver} onDrag={onControlledDrag}>
         <Part className="box" src={part.imageURL} />
       </Draggable>
     </Fragment>
