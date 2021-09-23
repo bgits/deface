@@ -3,8 +3,9 @@ import { PartsContext } from '../context/parts/context';
 import { styled } from '@mui/system';
 import Draggable from 'react-draggable';
 import { Part } from '../types';
+import { range, sample } from 'lodash';
 
-
+const atRandom = (x: number, y: number): number => sample(range(x, y)) || 0
 const Container = styled('div')(({ theme }) => ({
   display: 'grid',
   background: 'transparent',
@@ -16,7 +17,7 @@ const Container = styled('div')(({ theme }) => ({
 }));
 
 function PartContainer({ part, idx }: any) {
-  const [coordinates, setCoordinates] = useState({x: 0, y: 0})
+  const [coordinates, setCoordinates] = useState({x: atRandom(-235, 330), y: atRandom(0, 700)})
   const handleOver = (e: any) => {
     e.preventDefault();
     e.stopPropagation();
@@ -33,7 +34,6 @@ function PartContainer({ part, idx }: any) {
     maxHeight: '4em'
   }))
 
-  console.log({coordinates})
   return (
     <Fragment>
       <Draggable position={coordinates} onStart={handleOver} onDrag={onControlledDrag}>
